@@ -5,33 +5,35 @@
 function getStats(txt) {
     // you need to write your own code here
 
-    function aasciCode(item){
-        let aasciCode = item.charCodeAt(0);
-        console.log(aasciCode);
-    }
-
     //Basic logic to count number of characters
-    let chars = 0 
+    let chars = 0;
     let strArr = txt.split('');
     strArr.forEach(function(){chars+=1;});
    
     // Basic logic to count the number of lines
     let numLines = 0;
     let linesArr = txt == "" ? [] : txt.split('\n');
-    console.log(linesArr);
     linesArr.forEach(function(){numLines+=1;})
 
-    console.log(linesArr);
+    // Basic logic to count non empty lines
+    let nonEmptyLines = 0;
+    for (var line of linesArr){
+        let charArr = line.split('');
+        console.log(charArr);
+        for (let character of charArr){
+            if(character.charCodeAt(0) > 32){
+                nonEmptyLines+=1;
+                break;
+            }
+        } 
+    }
 
-
-
-   
 
     return {
         nChars: chars,                                                     
         nWords: 22,
         nLines: numLines,
-        nNonEmptyLines: 22,
+        nNonEmptyLines: nonEmptyLines,
         averageWordLength: 3.3,
         maxLineLength: 33,
         tenLongestWords: ["xxxxxxxxx", "123444444"],
@@ -40,4 +42,4 @@ function getStats(txt) {
 
 }
 
-getStats("hello");
+getStats("hello\nguys");
