@@ -78,10 +78,16 @@ function getStats(txt) {
         return newWord;        
     }
 
-    function sorterFunction(a, b){
+    function tieBraker(a, b){
         // Since we are assuming that both a and b are length 2 arrays with a KV pair
-        return b[1]-a[1];
+        if(a[1] == b[1]){
+            return a[0] > b[0]? 1: -1;
+        }
+        else{
+            return b[1] -a[1]; 
+        }
     }
+
 
     function findMaxLineLength(linesArr){
         let initLength = 0;
@@ -123,7 +129,7 @@ function getStats(txt) {
             }
         }
     }
-    let finalWord = removePunctuation(word);
+    let finalWord = removePunctuation(word).toLowerCase();
     checkMap(finalWord, wordMap);
 
 
@@ -150,9 +156,11 @@ function getStats(txt) {
 
     // Sources: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
     //          https://www.javascripttutorial.net/es6/javascript-map/
+    // Source:  https://medium.com/coding-at-dawn/how-to-sort-an-array-numerically-in-javascript-2b22710e3958
 
-    let sortedFrequencyMap = new Map([...wordMap.entries()].sort(sorterFunction));
-    let sortedLengthMap = new Map([...wordLengthMap.entries()].sort(sorterFunction));
+    let sortedFrequencyMap = new Map([...wordMap.entries()].sort(tieBraker));
+    let sortedLengthMap = new Map([...wordLengthMap.entries()].sort(tieBraker));
+
     console.log(sortedFrequencyMap);
     console.log(sortedLengthMap);
 
