@@ -8,12 +8,12 @@ function getStats(txt) {
     //Basic logic to count number of characters
     let chars = 0;
     let strArr = txt.split('');
-    console.log(strArr)
     strArr.forEach(function(){chars+=1;});
    
     // Basic logic to count the number of lines
     let numLines = 0;
     let linesArr = txt == "" ? [] : txt.split('\n');
+    console.log(linesArr);
     linesArr.forEach(function(){numLines+=1;});
 
     // Basic logic to count non empty lines
@@ -28,23 +28,47 @@ function getStats(txt) {
         } 
     }
 
+
+    //******************************* Utility functions **************************************/
     function checkMap(word, map){
-        if (typeof map.get(word) != "undefined"){
-            let value = map.get(word);
-            map.set(word, value+=1); 
-        } 
-        else{
-            map.set(word,1);
-        } 
+        if (word != "" && notSeparator(word)){
+            if (typeof map.get(word) != "undefined"){
+                let value = map.get(word);
+                map.set(word, value+=1); 
+            } 
+            else{
+                map.set(word,1);
+            }
+            wordCount+=1;
+        }
     }
 
-    function isNumeric(char){
+    function isNumeric(char, lastCharCheck){
         let code = char.charCodeAt(0);
-        if(code > 47 && code < 58){
-            return true;
+        if(!lastCharCheck){
+            if(code > 47 && code < 58){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         else{
+            if((code > 47 && code < 58) || char == '*'){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }   
+    }
+
+    function notSeparator(char){
+        if(char === ' ' || char === '\n'){
             return false;
+        }
+        else{
+            return true;
         }
     }
     
@@ -54,39 +78,108 @@ function getStats(txt) {
         return newWord;        
     }
 
+    function sorterFunction(a, b){
+        // Since we are assuming that both a and b are length 2 arrays with a KV pair
+        return b[1]-a[1];
+    }
+
+    function findMaxLineLength(linesArr){
+        let initLength = 0;
+        for(let line of linesArr){
+            let lineLength = line.length;
+            if(lineLength > initLength){
+                initLength = lineLength;
+            }
+        }
+        return initLength;
+    }
+
+    //***************** End of Utility Function Section ***********************************************/
+
     const wordMap = new Map();
     let wordCount = 0;
 
-    let word = "";    
+    let word = ""; 
     for(let character of strArr){
         let code = character.charCodeAt(0);
-        if(character != ' ' && character != '\n' && (code > 32 && !isNumeric(character))){
+        //TODO: 
+        //Essentially, to query the final character being a separating character, 
+        // We could make this into a query string of some sort and could use that query boolean
+        //String to check the if condition inside the loop and after the loop
+        if(notSeparator(character) && (code > 32 && !isNumeric(character, false))){
             word = word + character;
         }
         else{
-            let pWord = removePunctuation(word);
-            checkMap(pWord, wordMap);
-            wordCount +=1;
-            word = "";
-            word = isNumeric(character) ? (word + character) : word;
+            let lastChar = word.slice(-1);
+            if(isNumeric(lastChar, true) && notSeparator(character)){
+                word = word + character;
+            }
+            else{
+                let pWord = removePunctuation(word);
+                pWord = pWord.toLowerCase();
+                checkMap(pWord, wordMap);
+                word = "";
+                word = isNumeric(character) ? (word + character) : word;
+            }
         }
     }
-    wordCount+=1;
     let finalWord = removePunctuation(word);
     checkMap(finalWord, wordMap);
+
+
+    //Starting average word length section by getting the length of every word
+    const wordLengthMap = new Map();
+    let keys = wordMap.keys();
+    console.log(keys);
+    for (let strVar of keys){
+        let strlength = strVar.length;
+        wordLengthMap.set(strVar, strlength);
+    }
+
+
+    //Section of the code to get average string legth
+    let totalStringsLength = 0
+    let lengthKeys = wordLengthMap.keys();
+    for (let value of lengthKeys){
+        //You can take out the wordMap.get(value) multiplication after asking the question
+        // Is the average length of a word based on the total lengthh of all words (including repetition) or not inclding repetition
+        totalStringsLength = totalStringsLength + (wordLengthMap.get(value) * wordMap.get(value));
+    }
+    let averageStringLength = (totalStringsLength/wordCount).toFixed(2);
+
+
+
+    // Sources: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    //          https://www.javascripttutorial.net/es6/javascript-map/
+
+    let sortedFrequencyMap = new Map([...wordMap.entries()].sort(sorterFunction));
+    let sortedLengthMap = new Map([...wordLengthMap.entries()].sort(sorterFunction));
+    console.log(sortedFrequencyMap);
+    console.log(sortedLengthMap);
+
+    let tenLongestStrings = [];
+    let tenFrequentStrings = [];
+    let sortedLengthKeys = [...sortedLengthMap.keys()];
+    let sortedFrequenceyKeys =[...sortedFrequencyMap.keys()];
+
+    for(let index in sortedLengthKeys){
+        if(index < 10){
+            tenLongestStrings.push(sortedLengthKeys[index]);
+            tenFrequentStrings.push(sortedFrequenceyKeys[index]);
+        }
+    }
    
-    console.log(wordMap);
     return {
         nChars: chars,                                                     
         nWords: wordCount,
         nLines: numLines,
         nNonEmptyLines: nonEmptyLines,
-        averageWordLength: 3.3,
-        maxLineLength: 33,
-        tenLongestWords: ["xxxxxxxxx", "123444444"],
-        tenMostFrequentWords: ["a", "this", "the"],
+        averageWordLength: averageStringLength,
+        maxLineLength: findMaxLineLength(linesArr),
+        tenLongestWords: tenLongestStrings,
+        tenMostFrequentWords: tenFrequentStrings,
     };
 
 }
 
-console.log(getStats("hello\nguys guys"));
+
