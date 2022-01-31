@@ -130,7 +130,6 @@ function getStats(txt) {
     //Starting average word length section by getting the length of every word
     const wordLengthMap = new Map();
     let keys = wordMap.keys();
-    console.log(keys);
     for (let strVar of keys){
         let strlength = strVar.length;
         wordLengthMap.set(strVar, strlength);
@@ -160,7 +159,13 @@ function getStats(txt) {
     let tenLongestStrings = [];
     let tenFrequentStrings = [];
     let sortedLengthKeys = [...sortedLengthMap.keys()];
-    let sortedFrequenceyKeys =[...sortedFrequencyMap.keys()];
+
+    let sortedFrequenceyKeys = []
+    for (let pair of sortedFrequencyMap){
+        let jointString = pair[0]+'('+pair[1]+')';
+        sortedFrequenceyKeys.push(jointString);
+    }
+
 
     for(let index in sortedLengthKeys){
         if(index < 10){
