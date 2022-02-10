@@ -1,0 +1,155 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/siteS_style.css">
+    <title>My Work</title>
+</head>
+<body>
+
+    <ul class = "generalNavBar"> 
+        <li><a href="contact.html">Contact Me</a></li>
+        <li><a href="hobbies.html">About Me</a></li>
+        <li><a href="work.html">My Work</a></li>
+        <li><a href="home.html">Home</a></li>
+        <li id="myName">Jose Menjivar</li>
+    </ul> 
+
+    <div class = "workMain">
+        <div class ="flex-container">
+            <div class = "flex-item-top">
+                <h1>
+                   My Work
+                </h1>
+            </div>
+            <div class = "flex-item-bottom">
+                <p>
+                Selected some of my most recent projects <br> 
+                along with simple descriptions and an outline <br>
+                of the technologies used. 
+                </p> 
+            </div>
+        </div>    
+    </div>
+    <div class = "even-row-flex work-row-flex" id = "row-1-flex">
+        <div class = "even-pic">
+            <div class = "hobbies-pic-1">
+                <img src = "images/IMG_9559.JPG" class =img1>
+            </div>
+        </div>
+        <div class = "even-text even-text-work">
+            <h3>
+                Stock Return Predictions through Multi-Factor Modelling, <br>
+                and comparison with GRU ML results.
+            </h3>
+            <p>
+                For SENG 550 - Large Scale Data Systems Engineering, my teammates and I <br>
+                built a python-based application that had the ability to pull historical <br>
+                pricing any random subset of stocks in the S&P 500 index. We then used this<br>
+                data to run a linear regression ML algorithm. The features used were the financial <br>
+                "factors", which according to financial theory, can explain stock returns. <br>
+                The labels were price returns on the individual stocks. We then used a <br>
+                gated recurring unit Neural Net only with previous historical prices <br>
+                as features for future stock predictions and compared the results.<br>
+            </p>
+            <h4>
+                Technologies used:
+            </h4>
+            <ul>
+                <li>Python</li>
+                <li>Databricks and Apache Spark</li>
+                <li>Pandas</li>
+                <li>SciKit Learn</li>
+                <li>PyTorch</li>
+            </ul>
+        </div>
+    </div>
+    <div class = "odd-row-flex work-row-flex" id = "row-two-flex">
+        <div class = "odd-text">
+            <h3>Various Projects, CPSC 501- Advanced Programming Techniques</h3>
+            <ol>
+                <li><h4>Neural Nets Hyperparameter Tuning and Feature Preparation:</h4>
+                    Used Michael Nielsen's neural net class to train a neural net for <br>
+                    the MNIST and noMNIST datasets by hyperparameter tuning and <br>
+                    feature vector preparation. 
+                    <ul>
+                        <li>Python</li>
+                        <li>Numpy</li>
+                        <li>Pandas</li>
+                    </ul>
+                </li>
+                <li><h4>Serialization of a Java file using the Reflection API</h4>
+                    Serialized a series of Java classes, with all possible parent classes<br>
+                    and interfaces into several different script files.
+                    <ul>
+                        <li>Java</li>
+                        <li>Java Reflection API</li>
+                    </ul>
+                </li>
+                <li><h4>Use of the Fast Fourier Transform for Convolution Reverb</h4>
+                        Used the Fast Fourier Transform to optimize a time convolution algorithm <br>
+                        fron n-squared time to n-log n time (15 minutes to 5 seconds). Further optimized <br>
+                        the convolution reverb process with code tunings such as jamming, and loop unrolling.
+                        <ul>
+                            <li>C++</li>
+                            <li>GProf Code Profiler</li>
+                        </ul>
+                </li>
+            </ol>
+        </div>
+        <div class= "odd-row-right">
+            <img src = "images/IMG_7951.jpg" class = "img1">
+        </div>
+    </div>
+    <div class = "even-row-flex work-row-flex" id = "row-3-flex">
+        <div class = "even-pic">
+            <div class = "hobbies-pic-1">
+                <img src = "images/IMG_9426.JPG" class =img1>
+            </div>
+        </div>
+        <div class = "even-text even-text-work">
+            <h3>
+                "Better Together", a Social Media application <br>
+                for positive habit building and community support
+            </h3>
+            <p>
+                For CPSC 471 - Database Development, my teammates and I decided we <br>
+                we wanted to build a social media application that instead of reinforcing <br>
+                bad habits of distraction, promoted healthy habit building and community. <br>
+                The application has certain functionality such that people can create groups <br>
+                where everyone practices a habit and posts about their progress on an ongoing basis.
+                <h4>Technologies used: </h4>
+                <ul>
+                    <li>Typescript</li>
+                    <li>Reach JS</li>
+                    <li>Express JS</li>
+                    <li>PostgreSQL</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+    <div class = "odd-row-flex work-row-flex"  id = "row-4-flex">
+        <div class = "odd-text">
+            <h3>Current Academic Research</h3>
+            <p>
+                I am currently doing blockchain research under professor KJ Choi, where <br>
+                we are exploring Decentralized Finance (deFi) application structure and <br>
+                metrics. My time is spent understanding these systems' architecture <br>
+                and functionality in technical depth. 
+                <h4>Technologies used: </h4>
+                <ul>
+                    <li>Solidity</li>
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                </ul>
+            </p>
+            <p>Please do not hesitate to contact me to talk about all other projects!</p>
+        </div>
+        <div class= "odd-row-right">
+            <img src = "images/IMG_5593.jpg" class = "img1">
+        </div>
+    </div>
+
+</body>
+</html>

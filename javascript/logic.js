@@ -31,7 +31,8 @@ function getStats(txt) {
 
     //******************************* Utility functions **************************************/
     function checkMap(word, map){
-        if (word != "" && notSeparator(word)){
+        let char = word.charAt(0);
+        if (word != "" && !isSeparator(word) && (isNumeric(char) || isAlphabetical(char))){
             if (typeof map.get(word) != "undefined"){
                 let value = map.get(word);
                 map.set(word, value+=1); 
@@ -39,41 +40,43 @@ function getStats(txt) {
             else{
                 map.set(word,1);
             }
+            // console.log(word);
             wordCount+=1;
-        }
-    }
-
-    function isNumeric(char, lastCharCheck){
-        let code = char.charCodeAt(0);
-        if(!lastCharCheck){
-            if(code > 47 && code < 58){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        else{
-            if((code > 47 && code < 58) || char == '*'){
-                return true;
-            }
-            else{
-                return false;
-            }
         }   
     }
 
-    function notSeparator(char){
-        if(char === ' ' || char === '\n'){
-            return false;
+    function isNumeric(char){
+        let code = char.charCodeAt(0);
+        if(code > 47 && code < 58){
+            return true;
         }
         else{
+            return false;
+        }
+    }
+
+    function isAlphabetical(char){
+        let code = char.charCodeAt(0);
+        if((code >= 65 && code <= 90) || (code >= 97 && code <= 122)){
             return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    function isSeparator(char){
+        if(char === ' ' || char === '\n'){
+            return true;
+        }
+        else{
+            return false;
         }
     }
     
     function removePunctuation(word){
-        let punctuationRegex = /[,.?!]/g;
+        let punctuationRegex = /[;,.?!"+-]/g;
         let newWord = word.replace(punctuationRegex, '');
         return newWord;        
     }
@@ -81,7 +84,7 @@ function getStats(txt) {
     function tieBraker(a, b){
         // Since we are assuming that both a and b are length 2 arrays with a KV pair
         if(a[1] == b[1]){
-            return a[0] > b[0]? 1: -1;
+            return a[0] > b[0] ? 1: -1;
         }
         else{
             return b[1] -a[1]; 
@@ -102,40 +105,109 @@ function getStats(txt) {
 
     //***************** End of Utility Function Section ***********************************************/
 
-    const wordMap = new Map();
+    const wordCountMap = new Map();
     let wordCount = 0;
-
-    let word = ""; 
+    let word = "";
+    let lastChar = "";
+    let firstVal = 0;
     for(let character of strArr){
-        let code = character.charCodeAt(0);
-        //TODO: 
-        //Essentially, to query the final character being a separating character, 
-        // We could make this into a query string of some sort and could use that query boolean
-        //String to check the if condition inside the loop and after the loop
-        if(notSeparator(character) && (code > 32 && !isNumeric(character, false))){
+
+        // if(firstVal == 0){
+        //     word = character;
+        //     firstVal=1;
+        //     continue;
+        // }
+  
+        // let lastChar = word.charAt(word.length-1);
+        // if(isSeparator(character)){
+        //     checkMap(word.toLowerCase(), wordCountMap);
+        //     word = "";
+        //     firstVal = 0;
+        // }
+
+        // else if(isNumeric(lastChar)){
+        //     if(isNumeric(character)){
+        //         word = word + character;
+        //     }
+        //     else if(isAlphabetical(character)){
+        //         checkMap(word.toLowerCase(),wordCountMap);
+        //         word = character;
+        //     }
+        // }
+        // else if(isAlphabetical(lastChar)){
+        //     if(isAlphabetical(character)){
+        //         word = word + character;
+        //     }
+        //     else if(isNumeric(character)){
+        //         checkMap(word.toLowerCase(),wordCountMap);
+        //         word = character;
+        //     }
+        // }
+
+        if(!isSeparator(character)){
+            if(isNumeric(character)){
+                if(isNumeric(lastChar)){
+                    word = word + character;
+                    lastChar = character;
+                }
+                else if (isAlphabetical(lastChar)){
+                    checkMap(word.toLowerCase(), wordCountMap);
+                    word = character;
+                    lastChar = character;
+                }
+                else if(lastChar == ""){
+                    word = character;
+                    lastChar = character;
+                }
+            }
+            else if(isAlphabetical(character)){
+                if(isAlphabetical(lastChar)){
+                    word = word + character;
+                    lastChar = character;
+                }
+                else if (isNumeric(lastChar)){
+                    checkMap(word.toLowerCase(), wordCountMap);
+                    word = character;
+                    lastChar = character;
+                }
+                else if(lastChar == ""){
+                    word = character;
+                    lastChar = character;
+                }
+            }
+        }
+        else{
+            checkMap(word.toLowerCase(), wordCountMap);
+            word = "";
+            lastChar = "";
+        }
+
+        /*
+        if(notSeparator(character) && (code > 32 && !isNumeric(character))){
             word = word + character;
         }
         else{
             let lastChar = word.slice(-1);
-            if(isNumeric(lastChar, true) && notSeparator(character)){
+            if(isNumeric(lastChar) && notSeparator(character) && isNumeric(character)){
                 word = word + character;
             }
             else{
-                let pWord = removePunctuation(word);
-                pWord = pWord.toLowerCase();
-                checkMap(pWord, wordMap);
+                let pWord = removePunctuation(word).toLowerCase();
+                checkMap(pWord, wordCountMap);
                 word = "";
                 word = isNumeric(character) ? (word + character) : word;
             }
         }
+        */
     }
-    let finalWord = removePunctuation(word).toLowerCase();
-    checkMap(finalWord, wordMap);
 
+    // let finalWord = removePunctuation(word).toLowerCase();
+    checkMap(word.toLowerCase(), wordCountMap);
+    console.log(wordCountMap)
 
     //Starting average word length section by getting the length of every word
     const wordLengthMap = new Map();
-    let keys = wordMap.keys();
+    let keys = wordCountMap.keys();
     for (let strVar of keys){
         let strlength = strVar.length;
         wordLengthMap.set(strVar, strlength);
@@ -146,9 +218,9 @@ function getStats(txt) {
     let totalStringsLength = 0
     let lengthKeys = wordLengthMap.keys();
     for (let value of lengthKeys){
-        //You can take out the wordMap.get(value) multiplication after asking the question
+        //You can take out the wordCountMap.get(value) multiplication after asking the question
         // Is the average length of a word based on the total lengthh of all words (including repetition) or not inclding repetition
-        totalStringsLength = totalStringsLength + (wordLengthMap.get(value) * wordMap.get(value));
+        totalStringsLength = totalStringsLength + (wordLengthMap.get(value) * wordCountMap.get(value));
     }
     let averageStringLength = (totalStringsLength/wordCount).toFixed(2);
 
@@ -158,7 +230,7 @@ function getStats(txt) {
     //          https://www.javascripttutorial.net/es6/javascript-map/
     // Source:  https://medium.com/coding-at-dawn/how-to-sort-an-array-numerically-in-javascript-2b22710e3958
 
-    let sortedFrequencyMap = new Map([...wordMap.entries()].sort(tieBraker));
+    let sortedFrequencyMap = new Map([...wordCountMap.entries()].sort(tieBraker));
     let sortedLengthMap = new Map([...wordLengthMap.entries()].sort(tieBraker));
 
     console.log(sortedFrequencyMap);
