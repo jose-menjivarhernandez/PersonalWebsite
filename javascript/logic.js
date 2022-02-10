@@ -28,7 +28,6 @@ function getStats(txt) {
         } 
     }
 
-
     //******************************* Utility functions **************************************/
     function checkMap(word, map){
         let char = word.charAt(0);
@@ -40,7 +39,6 @@ function getStats(txt) {
             else{
                 map.set(word,1);
             }
-            // console.log(word);
             wordCount+=1;
         }   
     }
