@@ -74,21 +74,25 @@ function getStats(txt) {
             return false;
         }
     }
-    
-    function removePunctuation(word){
-        let punctuationRegex = /[;,.?!"+-]/g;
-        let newWord = word.replace(punctuationRegex, '');
-        return newWord;        
-    }
 
     function tieBraker(a, b){
         // Since we are assuming that both a and b are length 2 arrays with a KV pair
         if(a[1] == b[1]){
-            return a[0] > b[0] ? 1: -1;
+            let aContent = a[0];
+            let bContent = b[0];
+            let aFirst = aContent.charAt(0);
+            let bFirst = bContent.charAt(0);
+            if ((isNumeric(aFirst) && isNumeric(bFirst)) || (isAlphabetical(aFirst) && isAlphabetical(bFirst))){
+                return aContent.localeCompare(bContent);
+            }
+            else if (isNumeric(aFirst) && isAlphabetical(bFirst)){
+                return 1;
+            }
+            else if(isAlphabetical(aFirst) && isNumeric(bFirst)){
+                return -1;
+            }
         }
-        else{
-            return b[1] -a[1]; 
-        }
+        return b[1]-a[1]; 
     }
 
 
@@ -109,40 +113,8 @@ function getStats(txt) {
     let wordCount = 0;
     let word = "";
     let lastChar = "";
-    let firstVal = 0;
+
     for(let character of strArr){
-
-        // if(firstVal == 0){
-        //     word = character;
-        //     firstVal=1;
-        //     continue;
-        // }
-  
-        // let lastChar = word.charAt(word.length-1);
-        // if(isSeparator(character)){
-        //     checkMap(word.toLowerCase(), wordCountMap);
-        //     word = "";
-        //     firstVal = 0;
-        // }
-
-        // else if(isNumeric(lastChar)){
-        //     if(isNumeric(character)){
-        //         word = word + character;
-        //     }
-        //     else if(isAlphabetical(character)){
-        //         checkMap(word.toLowerCase(),wordCountMap);
-        //         word = character;
-        //     }
-        // }
-        // else if(isAlphabetical(lastChar)){
-        //     if(isAlphabetical(character)){
-        //         word = word + character;
-        //     }
-        //     else if(isNumeric(character)){
-        //         checkMap(word.toLowerCase(),wordCountMap);
-        //         word = character;
-        //     }
-        // }
 
         if(!isSeparator(character)){
             if(isNumeric(character)){
@@ -181,24 +153,6 @@ function getStats(txt) {
             word = "";
             lastChar = "";
         }
-
-        /*
-        if(notSeparator(character) && (code > 32 && !isNumeric(character))){
-            word = word + character;
-        }
-        else{
-            let lastChar = word.slice(-1);
-            if(isNumeric(lastChar) && notSeparator(character) && isNumeric(character)){
-                word = word + character;
-            }
-            else{
-                let pWord = removePunctuation(word).toLowerCase();
-                checkMap(pWord, wordCountMap);
-                word = "";
-                word = isNumeric(character) ? (word + character) : word;
-            }
-        }
-        */
     }
 
     // let finalWord = removePunctuation(word).toLowerCase();
