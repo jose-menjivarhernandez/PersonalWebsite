@@ -1,3 +1,7 @@
+/*
+ATTENTION: The html files have not been commented as they are pretty easy to follow with 
+the inspect function and if you can read HTML, its self explanatory.
+*/
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -44,6 +48,11 @@ body .generalNavBar #myName {
   padding: 14px 16px;
 }
 
+/*
+the following selector properties are set for the first visible div
+in the "About Me" or "My Hobbies" page. This include the picture and the 
+middle text box
+*/
 .hobbiesMain {
   height: 800px;
   background: url("../images/IMG_0430.jpg");
@@ -55,6 +64,11 @@ body .generalNavBar #myName {
   position: relative;
 }
 
+/*
+the following selector properties are set for the first visible div
+in the "About Me" or "My Hobbies" page. This include the picture and the 
+middle text box
+*/
 .homeBody {
   background-image: url("../images/IMG_1944.jpg");
   background-size: cover;
@@ -62,6 +76,11 @@ body .generalNavBar #myName {
   background-repeat: no-repeat;
 }
 
+/*
+the following selector properties are set for the first visible div
+in the "My Work" page. This include the picture and the 
+middle text box
+*/
 .workMain {
   height: 800px;
   background: url("../images/IMG_0297.jpg");
@@ -69,10 +88,14 @@ body .generalNavBar #myName {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 2px;
-  color: white;
   position: relative;
 }
 
+/*
+the following selector properties are set for the first visible div
+in the "Contact Me" page. This include the picture and the 
+middle text box
+*/
 .contactMain {
   height: 800px;
   background: url("../images/IMG_5586.jpg");
@@ -80,12 +103,15 @@ body .generalNavBar #myName {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 2px;
-  color: white;
   position: relative;
 }
 
+/*
+The following selector properties are set for the floating box inside the main
+div that has the name of the page for every page and a small description
+Used w3School to find a way to center this within the main div (with the top, left, and transform properties)
+*/
 .flex-container {
-  clear: left;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -124,6 +150,12 @@ body .generalNavBar #myName {
   color: white;
 }
 
+/*
+These are properties that the divs that are even in every page
+after main (div 0 is the first one after main, div 1 is the second one)
+Normal flexbox properties such as splitting the screen in 50%. 
+When under a certain size, collapsed to a single looking div for responsiveness 
+*/
 .even-row-flex {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -155,12 +187,20 @@ body .generalNavBar #myName {
           flex: 50%;
 }
 
+/*
+Every image that is in any div except the main ones or the even div in the contact
+page are of class img1 to let the fit nicely onto their respective spaces
+*/
 .img1 {
   height: 100%;
   width: 100%;
   border-radius: 2px;
 }
 
+/*
+This img is the image for div 0 (not main) of the contact page
+This is my picture
+*/
 .img2 {
   height: 650px;
   width: auto;
@@ -170,6 +210,11 @@ body .generalNavBar #myName {
   display: block;
 }
 
+/*
+Similar to even-row-flex, these are the odd divs in all pages 
+(div 1 and 3, not including main). Styling is very similar with the difference of the table in the 
+hobbies page in div 1
+*/
 .odd-row-flex {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -233,12 +278,34 @@ body .generalNavBar #myName {
           flex: 50%;
 }
 
+#ol-style {
+  list-style-type: upper-roman;
+}
+
+#ul-style {
+  list-style-type: none;
+  font-style: italic;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  margin-top: 10px;
+  border-left: 7px solid #DAF1DE;
+}
+
 .contact-ul li a {
   text-decoration: underline;
   color: white;
 }
 
 @media screen and (max-width: 1440px) {
+  /*
+    Essentially, i made every flexbox outside of the main div(odd or even)
+    and the contact page div 0 this class. 
+
+    This ensure that i could adjust by hikding the picture component of the 
+    flexbox and then set the backgrounds of the divs as the same pictures
+    the old flexboxes had to create a consistent 
+    */
   .work-row-flex {
     height: 700px;
     background-size: cover;
@@ -258,7 +325,7 @@ body .generalNavBar #myName {
   .work-row-flex .even-text-work, .work-row-flex .odd-text {
     background-color: #051f2099;
     font-size: 15px;
-    max-width: 75%;
+    max-width: 85%;
     padding: 2em;
     -webkit-transform: translate(-0.25%, 0);
             transform: translate(-0.25%, 0);
@@ -309,7 +376,7 @@ body .generalNavBar #myName {
   .contact-flex .even-text {
     background-color: #051f2099;
     font-size: 13px;
-    max-width: 75%;
+    max-width: 85%;
     padding: 1em;
     border-radius: 10px;
   }
@@ -320,7 +387,7 @@ body .generalNavBar #myName {
 
 @media screen and (max-width: 769px) {
   .work-row-flex {
-    height: 800px;
+    height: 850px;
   }
   .work-row-flex .even-text-work, .work-row-flex .odd-text {
     font-size: 13px;

@@ -1,11 +1,20 @@
 
+/*
+ATTENTION: The html files have not been commented as they are pretty easy to follow with 
+the inspect function and if you can read HTML, its self explanatory.
+*/
+// Property that allows all width percentage calls to include margin, padding and border
 * {
     box-sizing: border-box;
 }
 
+// General body properties for the entire website
 body {
+    //Properties concerning the light dark green gradient in the webistes backgroung and fonts
     background-image:linear-gradient(to right, #051f20, #0b2b26, #235347);
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    // General nav bar styling, same nav bar configuration for all different pages
     .generalNavBar {
         list-style-type: none;
         margin: 0;
@@ -43,6 +52,11 @@ body {
       }
 }
 
+/*
+the following selector properties are set for the first visible div
+in the "About Me" or "My Hobbies" page. This include the picture and the 
+middle text box
+*/
 .hobbiesMain {
     height: 800px;
     background: url('../images/IMG_0430.jpg');
@@ -54,6 +68,12 @@ body {
     position:relative;
 }
 
+/*
+the following selector properties are set for the first visible div
+in the "About Me" or "My Hobbies" page. This include the picture and the 
+middle text box
+*/
+
 .homeBody {
     background-image: url('../images/IMG_1944.jpg');
     background-size: cover;
@@ -61,6 +81,11 @@ body {
     background-repeat: no-repeat;
 }
 
+/*
+the following selector properties are set for the first visible div
+in the "My Work" page. This include the picture and the 
+middle text box
+*/
 .workMain{
     height: 800px;
     background: url('../images/IMG_0297.jpg');
@@ -68,9 +93,14 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 2px;
-    color: white;
     position:relative;
 }
+
+/*
+the following selector properties are set for the first visible div
+in the "Contact Me" page. This include the picture and the 
+middle text box
+*/
 
 .contactMain{
     height: 800px;
@@ -79,13 +109,16 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 2px;
-    color: white;
     position:relative;
 }
 
-
+/*
+The following selector properties are set for the floating box inside the main
+div that has the name of the page for every page and a small description
+Used w3School to find a way to center this within the main div (with the top, left, and transform properties)
+*/
 .flex-container {
-    clear: left;
+    // Used a two box flexbox
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -100,10 +133,13 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
 
+    // Small adjustment for the top box
     .flex-item-top {
         padding: 10px;
     }
 
+    //Properties to make sure the bottom text is bold, 
+    // and the hyperlink is appropriately formatted  
     .flex-item-bottom {
         padding: 10px;
         font-weight: bold;
@@ -115,6 +151,12 @@ body {
     }
 }
 
+/*
+These are properties that the divs that are even in every page
+after main (div 0 is the first one after main, div 1 is the second one)
+Normal flexbox properties such as splitting the screen in 50%. 
+When under a certain size, collapsed to a single looking div for responsiveness 
+*/
 .even-row-flex {
     display: flex;
     flex-direction: row;
@@ -131,13 +173,20 @@ body {
         flex:50%;
     } 
 }
-
+/*
+Every image that is in any div except the main ones or the even div in the contact
+page are of class img1 to let the fit nicely onto their respective spaces
+*/
 .img1 {
     height: 100%;
     width: 100%;
     border-radius: 2px;
 }
 
+/*
+This img is the image for div 0 (not main) of the contact page
+This is my picture
+*/
 .img2{
     height:650px;
     width: auto;
@@ -147,6 +196,11 @@ body {
     display: block;
 }
 
+/*
+Similar to even-row-flex, these are the odd divs in all pages 
+(div 1 and 3, not including main). Styling is very similar with the difference of the table in the 
+hobbies page in div 1
+*/
 .odd-row-flex {
     display: flex;
     flex-direction: row;
@@ -155,9 +209,14 @@ body {
     justify-items: center;
     align-items: center;
 
+    // formatting for the table in the hobbies page.
     .hobbies-table{
         flex:50%;
         
+        // The table styyling properties
+        // Includes properties such as what happens when there is 
+        // hovering over the data rows of the table. 
+        // We also properly decorate the hyperlinks to All trails in the table.
         #hTable {
             width: 85%;
             height: 350px;
@@ -193,6 +252,23 @@ body {
     }
 }
 
+// Style for the single ordered list in the work page
+#ol-style{
+    list-style-type: upper-roman;
+}
+
+//Styling property for the several unordered lists in the webpage
+#ul-style{
+    list-style-type: none;
+    font-style: italic;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    margin-top: 10px;
+    border-left: 7px solid #DAF1DE ;
+}
+
+// Properties to properly format the links in the contact div
 .contact-ul{
     li a {
         text-decoration: underline;
@@ -200,8 +276,18 @@ body {
     }
 }
 
+// Changes that happpen when the screen goes beneath 1440px
+// I am 
 @media screen and (max-width: 1440px){
 
+    /*
+    Essentially, i made every flexbox outside of the main div(odd or even)
+    and the contact page div 0 this class. 
+
+    This ensure that i could adjust by hikding the picture component of the 
+    flexbox and then set the backgrounds of the divs as the same pictures
+    the old flexboxes had to create a consistent 
+    */
     .work-row-flex{
         height:700px;
         background-size: cover;
@@ -210,6 +296,7 @@ body {
         border-radius: 10px;
         justify-content: center;
 
+        // Hid the picture divs
         .even-pic{
             display: none;
         }
@@ -217,16 +304,20 @@ body {
             display: none;
         }
 
+        // Slight modifications to the textboxes from the div flexboxes. 
+        // Additionally, added the transparent boxes for clear reading
         .even-text-work, .odd-text{
             background-color: #051f2099;
             font-size: 15px;
-            max-width: 75%;
+            max-width: 85%;
             padding: 2em;
             transform: translate(-0.25%,0);
             border-radius: 10px;
         }   
     }
 
+    // The folllowing 6 selector properties are just the changes
+    // to the backgrounds of the divs to their corresponsind pictures
     #row-1-flex {
         background-image: url('../images/IMG_9559.JPG');
     }
@@ -247,20 +338,29 @@ body {
         background-image: url('../images/IMG_5593.jpg');
     }
     
+    // We add vertical padding to the table to make it more separate
+    // and unique from the top div and give it its needed space
     .hobbies-table{
         padding: 10px 0;
     }
 
+    // Increase the width of the table and adjust font size to fit the div appropriately
     #hTable{
         width: 95%;
         font-size: 15px;
     }
 }
 
+// Further Scalings when the screen fits 900 px
 @media screen and (max-width:900px){
+
+    // The main-div floating box container adjusts tnow fit 50% of the width of the screen
     .flex-container{
         width:50%;
     }
+
+    // The contact flex (the non main div) now has a whole picture as a background like the 
+    // divs in the "My Work" page
     .contact-flex{
         height:600px;
         background-size: cover;
@@ -270,27 +370,36 @@ body {
         border-radius: 10px;
         justify-content: center;
 
+        // Hid the page on the right
         .even-pic{
             display: none;
         }
 
+        // Adjust the text in this div to fit the screen appropriately
         .even-text{
             background-color: #051f2099;
             font-size: 13px;
-            max-width: 75%;
+            max-width: 85%;
             padding: 1em;
             border-radius: 10px;
         }
     }
+
+    // Table font size is further scaled down to manage the size of the table
+    // so that everything remains properly visible
     #hTable{
         font-size: 13px;
     }
 }
 
+// Small device (or tablet) breaking point where the 
+// height of the divs is increased to match width adjstment requirements and 
+// such that the puctures retain integrity
+
 @media screen and (max-width:769px){
 
     .work-row-flex{
-        height:800px;    
+        height:850px;    
 
         .even-text-work, .odd-text{
             font-size: 13px;
@@ -300,6 +409,9 @@ body {
 
 }
 
+// Final screen size adjustment that mosyly only concenrns the nav bar 
+// size adjustment for the most part. Additionally, the size of the main
+// floating box and the hTable for better readibility
 
 @media screen and (max-width: 650px) {
     .generalNavBar {
@@ -323,6 +435,5 @@ body {
     #hTable{
         font-size: 12px;
     }
-
   }
 
