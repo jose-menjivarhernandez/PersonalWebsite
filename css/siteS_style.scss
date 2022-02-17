@@ -69,6 +69,21 @@ middle text box
 }
 
 /*
+Corner image for index page, added as i saw the discussion post saying there needed 
+to be a non-background image in every page
+*/
+
+.corner-image{
+    position: absolute;
+    bottom: 0;
+    right:0;
+    .right-corner-image {
+        height:100px;
+        width: auto;
+    }
+}
+
+/*
 the following selector properties are set for the first visible div
 in the "About Me" or "My Hobbies" page. This include the picture and the 
 middle text box
@@ -404,6 +419,14 @@ hobbies page in div 1
         .even-text-work, .odd-text{
             font-size: 13px;
             max-width: 85%;
+        }
+    }
+
+    //Scale corner image for index page
+    .corner-image{
+        .right-corner-image {
+            height:80px;
+            width: auto;
         }
     }
 

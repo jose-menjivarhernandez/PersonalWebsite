@@ -119,6 +119,9 @@ function getStats(txt) {
             else if(isAlphabetical(aFirst) && isNumeric(bFirst)){
                 return -1;
             }
+
+            //Code to sort with normal method, just so you can see it was considered.
+            // return a[0]>b[0] ? 1 :-1;
         }
         return b[1]-a[1]; 
     }
